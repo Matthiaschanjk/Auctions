@@ -1,0 +1,24 @@
+{% extends "auctions/layout.html" %}
+
+{% block head %}
+    listing
+{% endblock %}
+
+{% block body %}
+    <h2 class="m-0">{{entry.title}}</h2>
+<hr/>
+<img src="{{entry.image}}" width="400px;" height:"auto;">
+<hr/>
+
+<h6>Sold to</h6>
+<h6 style="font-weight: bold; color: red;">{{entry.highestbiduser | capfirst}} at ${{entry.bid}}</h6>
+<h6 style="font-style: italic;">{{entry.timestamp}}</h6>
+
+<hr/>
+    <h5>Description: </h5>
+    <h6>{{entry.detail}}</h6>
+<hr/>
+
+<div>
+    <hr/>
+{% endblock %}

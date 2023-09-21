@@ -1,0 +1,75 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %}
+    listing
+{% endblock %}
+
+{% block body %}
+    <div class="d-flex justify-content-between align-items-center">
+        <h2 class="m-0">listing: {{entry.title}}</h2>
+    
+            {% if user.username == entry.user %}
+            <form action="{% url 'closing' entry.id %}" method="Post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary" style="background-color: red; border-color: red; margin-right:10px;">Close Auction</button>
+            </form>
+            {% elif watchlist != 0 %}
+                <form action="{% url 'watchlistremove' entry.id %}" method="Post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary" style="background-color: red; border-color: red; margin-right:10px;">Remove from watchlist</button>
+            </form>
+
+            {% else %}
+            <form action="{% url 'watchlistsave' entry.id %}" method="Post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary" style="background-color: blue; border-color: blue; margin-right:10px;">Add to watchlist</button>
+            </form>
+            {% endif %}
+    </div>
+    <hr/>
+    <img src="{{entry.image}}" width="400px;" height:"auto;">
+    <hr/>
+    <h5>Current bid: ${{entry.bid}}</h5>
+
+    <form method="Post" action="{% url 'newbid' entry.id %}">
+        {% csrf_token %}
+        <label>Enter bid amount</label>
+        <div class="form-group d-flex">
+            <input type="number" id="typeNumber" name="newbid" class="form-control" style="width:80px; margin-right: 10px;">
+            <button type="submit" class="btn btn-primary">Bid</button>
+        </div>
+    </form>
+    <h6 style="font-style: italic;">Highest bidder by {{entry.highestbiduser}}</h6>
+    <h6>Previous Bid amounts: {% for i in oldbid %} ${{i}}{% if not forloop.last %},{% endif %}{% endfor %}</h6>
+    
+    <hr/>
+        <h5>Description: </h5>
+        <h6>{{entry.detail}}</h6>
+    <hr/>
+
+    <div>
+        <hr/>
+        <h5>Comments</h5>
+        {% for j in comment %}
+            <div class="card">
+                <div class="card-body" style="font-size: style="font-size: italic;">
+                    "{{j.comment}}""
+                </div>
+                <div style="text-align: right; padding-right: 10px;">
+                    <h6>by {{j.user}}</h6>
+                </div>
+            </div>  
+        {% endfor %}
+
+        <form action="{% url 'commenting' entry.id %}" method="Post">
+            {% csrf_token %}
+            <div class="Form-group">
+                <label>Add a comment</label>
+                <textarea class="form-control" name="comment" rows="3"></textarea>
+                <p></p>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

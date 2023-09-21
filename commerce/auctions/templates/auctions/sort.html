@@ -1,0 +1,44 @@
+{% extends "auctions/layout.html" %}
+
+{% block head %}
+    listings
+{% endblock %}
+
+{% block body %}
+<div class="d-flex flex-row">
+<h2>Filter Active Listings Based on </h2>
+{% if category == "Anime" %}
+<button class="rounded-pill" style="margin-left: 10px; background-color: #E34234; border: #E34234; color: white; font-size: auto; width: 80px; height: auto;">{{category}}</button>
+{% elif category == "Lifestyle" %}
+<button class="rounded-pill" style="margin-left: 10px; background-color: #eabe6b; border: #eabe6b; color: white; font-size: auto; width: 80px; height: auto;">{{category}}</button>
+{% elif category == "Nature" %}
+<button class="rounded-pill" style="margin-left: 10px; background-color: #114611; border: #114611; color: white; font-size: auto; width: 80px; height: auto;">{{category}}</button>
+{% else %}
+{% endif %}
+</div>
+
+{% for entry in entries %}
+    <div style="width= 300px; height=500px; border: 5px solid grey; padding:50px; margin:20px;">
+        <div class="d-flex flex-row">
+            <h4>{{entry.title}}</h4> 
+            {% if entry.category == "Anime" %}
+            <button class="rounded-pill" style="margin-left: 10px; background-color: #E34234; border: #E34234; color: white; font-size: auto; width: 80px; height: auto;">{{entry.category}}</button>
+            {% elif entry.category == "Lifestyle" %}
+            <button class="rounded-pill" style="margin-left: 10px; background-color: #eabe6b; border: #eabe6b; color: white; font-size: auto; width: 80px; height: auto;">{{entry.category}}</button>
+            {% elif entry.category == "Nature" %}
+            <button class="rounded-pill" style="margin-left: 10px; background-color: #114611; border: #114611; color: white; font-size: auto; width: 80px; height: auto;">{{entry.category}}</button>
+            {% else %}
+            {% endif %}
+        </div>
+        <p></p>
+        <img src="{{entry.image}}" width="auto" height="400px">
+        <p></p>
+        <h5>Price: ${{entry.bid}}</h5>
+        <p></p>
+        <h6 style="border: 2px">{{entry.detail}}</h6>
+        <a href="{% url 'list' entry.id %}"><button class="btn btn-primary">Check out listing</button></a>
+    </div>
+
+
+{% endfor %}
+{% endblock %}

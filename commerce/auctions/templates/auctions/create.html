@@ -1,0 +1,43 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %}
+    create listing
+{% endblock %}
+
+{% block body %}
+    <h1>Create lisiting</h1>
+    <form action="{% url 'create' %}" method="Post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label>Title</label>
+            <input type="text" class="form-control" name="title" required="required">
+        </div>
+
+        <div>
+            <label>Enter Image URL</label>
+            <input class="form-control" type="url" name="url" required="required">
+        </div>
+
+        <div class="form-outline" style= "margin-top: 10px; margin-bottom: 10px;">
+            <label class="form-label" for="typeNumber">Starting bid</label>
+            <input type="number" name="bid" min="1" class="form-control active" />
+        </div>
+
+
+        <div>
+            <label>Describe your listing</label>
+            <textarea class="form-control" name="details" required="required"></textarea>
+        </div>
+
+        <p></p>
+        <select class="form-select" aria-label="Select" name="category" required>
+            <option selected hidden value="None">Select Category</option>
+            <option value="Anime">Anime</option>
+            <option value="Lifestyle">Lifestyle</option>
+            <option value="Nature">Nature</option>
+            <option value="Others">Others</option>
+          </select>
+        <p></p>
+        <input type="Submit">
+    </form>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "auctions/layout.html" %}
+
+{% block head %}
+    watchlist
+{% endblock %}
+
+{% block body %}
+{% if not entry %}
+<h2>You currently have nothing in your watchlist</h2>
+{% else %}
+
+{% for i in entry %}
+<div>
+    <hr/>
+    <div class="d-flex flex-row">
+        <img src="{{i.entry.image}}" alt="{{i.entry.title}}"width="200px;" height="auto">
+        <div class="d-flex flex-column" style="padding: 20px;">
+            <h2>{{i.entry.title}}</h2>
+            <h4 style="font-weight: normal;">Final bid amount: ${{i.entry.bid}}</h4>
+            <h6 style="font-weight: normal;">{{i.entry.detail}}</h6>
+        </div>
+    </div>
+    <div>
+        <a href="{% url 'list' i.entry.id %}"><button type="button" class="btn btn-primary" style="float: right; margin-right: 25px; margin-top: -40px; position: relative; z-index: 1;">View Details</button></a>
+    </div>
+    <hr/>
+</div>
+{% endfor %}
+{% endif %}
+{% endblock %}

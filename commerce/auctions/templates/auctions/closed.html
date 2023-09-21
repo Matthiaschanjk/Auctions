@@ -1,0 +1,26 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %}
+    Closed Deals
+{% endblock %}
+
+{% block body %}
+
+{% for i in closed %}
+<div>
+    <hr/>
+    <div class="d-flex flex-row">
+        <img src="{{i.image}}" alt="{{i.title}}"width="200px;" height="auto">
+        <div class="d-flex flex-column" style="padding: 20px;">
+            <h2>{{i.title}}</h2>
+            <h4 style="font-weight: normal;">Final bid amount: {{i.bid}}</h4>
+            <h6 style="font-weight: normal;">{{i.detail}}</h6>
+        </div>
+    </div>
+    <div>
+        <a href="{% url 'closinglist' i.id %}"><button type="button" class="btn btn-primary" style="float: right; margin-right: 25px; margin-top: -40px; position: relative; z-index: 1;">View Details</button></a>
+    </div>
+    <hr/>
+</div>
+{% endfor %}
+{% endblock %}
